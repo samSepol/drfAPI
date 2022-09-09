@@ -1,5 +1,3 @@
-from ast import Bytes
-from functools import partial
 import io
 import json
 from django.shortcuts import render
