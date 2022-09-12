@@ -19,5 +19,5 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('codersapi/',views.get_coders),
-    # path('coder/<int:pk>',views.get_coder)
+    path('codersapi/<int:pk>',views.coder_detail)
 ]

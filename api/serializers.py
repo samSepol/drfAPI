@@ -19,5 +19,19 @@ class CoderSerializer(serializers.Serializer):
         instance.salary=validate_data.get('salary',instance.salary)
         instance.save()
         return instance
+
+    # field validation
+    # def validate_salary(self,value):
+    #     if value>500000000:
+    #         raise serializers.ValidationError('itnahi milega')
+    #     return value 
          
 
+    # object validation 
+
+    def validate(self,data):
+        company=data.get('company')
+        domain= data.get('domain')
+        if company.lower() !='bynry' and domain!='full stack developer':
+            raise serializers.ValidationError('check details again !')
+        return data

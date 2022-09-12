@@ -3,24 +3,19 @@ import json
 
 URL = "http://127.0.0.1:8000/codersapi/"
 
-def get_coder(id=None):
-    data={}
-    if id is not None:
-        data={'id':id}
-        # convert data into json
-    json_data=json.dumps(data)
-    r=requests.get(url=URL,data=json_data)
+
+def get_coder():
+    r=requests.get(url=URL)
     data=r.json()
     print(data)
-
-# get_coder()
+get_coder()
 
 def post_coder():
     data={
         'name':'paul allen',
         'domain':'Basic',
         'company':'Microsoft',
-        'salary':90000000
+        'salary':900000                                                                                                                                       
     }
 
     # convert data into json
@@ -30,7 +25,7 @@ def post_coder():
     data = r.json()
     print(data)
 
-# post_coder()
+post_coder()
 
 
 # update coder 
@@ -57,5 +52,5 @@ def delete_coder():
     data=r.json()
     print(data)
 
-delete_coder()
+# delete_coder()
 

@@ -1,5 +1,6 @@
 import io
 import json
+# import json
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from .models import Coder 
@@ -7,23 +8,23 @@ from django.views.decorators.csrf import csrf_exempt
 from .serializers import CoderSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from rest_framework import status
 
 # Create your views here.
 @csrf_exempt
+
 def get_coders(request):
     # get Data
     # check request 
     if request.method=='GET':
-        json_data=request.body
-        stream=io.BytesIO(json_data)
-        pythondata=JSONParser().parse(stream)
-        id = pythondata.get('id',None)
-        if id is not None:
-            coder=Coder.objects.get(id=id)
-            serializer = CoderSerializer(coder)
-            json_data=JSONRenderer().render(serializer.data)
-            return HttpResponse(json_data,content_type='application/json')
+        # json_data=request.body
+        # stream = io.BytesIO(json_data)
+        # pythondata=JSONParser().parse(stream)
+        # id = pythondata.get('id',None)
+        # if id is not None:
+        #     coder=Coder.objects.get(id=id)
+        #     serializer = CoderSerializer(coder)
+        #     json_data=JSONRenderer().render(serializer.data)
+        #     return HttpResponse(json_data,content_type='application/json')
         coder = Coder.objects.all()
         serializer = CoderSerializer(coder,many=True)
         json_data = JSONRenderer().render(serializer.data)
@@ -85,6 +86,18 @@ def get_coders(request):
         return HttpResponse(json_data,content_type='application/json')                                                                                                       
 
 
+    # get specific coder
+def coder_detail(request,pk):
+    if pk is not None:
+        res={
+            'msg':'Id not found'
+        }
+        json_data=JSONRenderer().render(res)
+        return HttpResponse(json_data,content_type='application/json')
+    coder=Coder.objects.get(id=pk)
+    serializer=CoderSerializer(coder)
+    json_data=JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data,content_type='application/json')
 
         
 
